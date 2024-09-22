@@ -1,7 +1,8 @@
-Automated Email Processor with Google and Outlook Login Integration
+**Automated Email Processor with Google and Outlook Login Integration** <br>
 This Node.js application automates the process of reading, labeling, and replying to emails using Gmail API and OpenAI API. It provides a simple login page where users can authenticate with their Google or Outlook accounts. After logging in, the system processes incoming emails, categorizes them using AI, applies appropriate labels, and sends personalized replies to the email senders.
 
 Features:
+
 Google and Outlook OAuth Authentication: Users can log in with their Google or Outlook accounts to enable email processing.
 Gmail Integration: Automatically fetches new emails from the user's inbox, labels them, and sends replies.
 AI-Powered Email Labeling: Uses OpenAI API to analyze email content and assign labels (e.g., 'interested', 'not interested').
