@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Email Service Selection</title>
+</head>
+<body>
+    <div class="container">
+        <h1>ReachMe: One Stop Mailing Solution</h1>
+        <div class="button-container">
+            <button id="gmailBtn" class="service-btn gmail">Start Gmail Process</button>
+            <button id="outlookBtn" class="service-btn outlook">Start Outlook Process</button>
+        </div>
+        <button id="showProcess" class="show-process">Show Process</button>
+        <div id="logBox" class="output-box" style="display: none;">
+            <pre></pre>
+        </div>
+        <div class="actions">
+            <button id="clearLogs" class="clear-logs">Clear Logs</button>
+            <button id="saveLogs" class="save-logs">Save Logs</button>
+        </div>
+    </div>
+
+    <script>
+        const logBox = document.querySelector('#logBox pre');
+        const ws = new WebSocket('ws://localhost:3000');
+
+        ws.onmessage = function(event) {
+            logBox.innerText += event.data + '\n';
+            logBox.parentElement.style.display = 'block';
+        };
+
+        document.getElementById('gmailBtn').addEventListener('click', function() {
+            fetch('/start-gmail')
+                .then(response => response.json())
+                .then(data => {
+                    logBox.innerText += data.message + '\n';
+                    logBox.parentElement.style.display = 'block';
+                })
+                .catch(error => console.error('Error starting Gmail process:', error));
+        });
+
+        document.getElementById('outlookBtn').addEventListener('click', function() {
+            fetch('/start-outlook')
+                .then(response => response.json())
+                .then(data => {
+                    logBox.innerText += data.message + '\n';
+                    logBox.parentElement.style.display = 'block';
+                })
+                .catch(error => console.error('Error starting Outlook process:', error));
+        });
+
+        document.getElementById('clearLogs').addEventListener('click', function() {
+            logBox.innerText = '';
+        });
+
+        document.getElementById('showProcess').addEventListener('click', function() {
+            const logBox = document.getElementById('logBox');
+            logBox.style.display = logBox.style.display === 'none' ? 'block' : 'none';
+        });
+
+        document.getElementById('saveLogs').addEventListener('click', function() {
+            window.location.href = '/save-logs';
+        });
+    </script>
+</body>
+</html>
